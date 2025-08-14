@@ -1,0 +1,30 @@
+name: Auto Run FLO to YouTube Music
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 매일 9AM KST (UTC 0AM)
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Restore token.json
+        env:
+          TOKEN_JSON: ${{ secrets.YT_TOKEN_JSON }}
+        run: |
+          echo "$TOKEN_JSON" > token.json
+
+      - name: Run script
+        run: python create_yt_playlist.py
