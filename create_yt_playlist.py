@@ -14,20 +14,12 @@ import google.auth.transport.requests
 from google.oauth2.credentials import Credentials
 
 
+# 기존 재생목록 ID를 하드코딩합니다.
+EXISTING_PLAYLIST_ID = "PLUaAQuzI7YgGUaza7B8Ilf_-nm2k44GiE"
+
 def get_playlist_id(youtube):
-    """사용자에게 새 재생목록 생성 또는 기존 재생목록 ID 입력 옵션을 제공."""
-    print("1. 새 재생목록 생성")
-    print("2. 기존 재생목록에 이어서 추가")
-    choice = input("옵션을 선택하세요 (1 또는 2): ").strip()
-    if choice == "1":
-        playlist_title = input("생성할 YouTube 재생목록의 제목을 입력하세요: ")
-        playlist_description = "FLO에서 가져온 재생목록"
-        return create_playlist(youtube, playlist_title, playlist_description)
-    elif choice == "2":
-        return "PLUaAQuzI7YgGUaza7B8Ilf_-nm2k44GiE"
-    else:
-        print("잘못된 입력입니다. 다시 실행해주세요.")
-        return None
+    """항상 기존 재생목록 ID를 반환합니다."""
+    return EXISTING_PLAYLIST_ID
 
 def get_existing_video_ids(youtube, playlist_id):
     """기존 재생목록에 이미 포함된 videoId 목록을 반환."""
